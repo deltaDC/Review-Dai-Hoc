@@ -25,8 +25,12 @@ public abstract class BaseController<T extends BaseEntity> {
 
     @PostMapping
     public T save(@RequestBody T entity) {
-        System.out.println(entity);
         return service.save(entity);
+    }
+
+    @PutMapping("/{id}")
+    public Optional<T> update(@PathVariable Long id, @RequestBody T updatedEntity) {
+        return service.update(id, updatedEntity);
     }
 
     @DeleteMapping("/{id}")

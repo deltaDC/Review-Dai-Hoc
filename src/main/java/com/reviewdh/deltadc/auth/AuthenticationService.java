@@ -15,9 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -85,8 +83,8 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .username(user.getName())
-                .user_id(String.valueOf(user.getUser_id()))
+                .username(user.getUsername())
+                .userId(String.valueOf(user.getId()))
                 .role(String.valueOf(user.getRole()))
                 .build();
     }

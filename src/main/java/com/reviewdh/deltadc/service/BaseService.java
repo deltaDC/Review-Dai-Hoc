@@ -13,7 +13,7 @@ public interface BaseService<T extends BaseEntity> {
         return getRepository().save(t);
     }
 
-    default Optional<T> update(T t) {
+    default Optional<T> update(Long id, T t) {
         if (getRepository().existsById(t.getId())) {
             return Optional.of(getRepository().save(t));
         }
