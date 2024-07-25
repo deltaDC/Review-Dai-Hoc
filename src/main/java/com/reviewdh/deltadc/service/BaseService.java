@@ -14,7 +14,7 @@ public interface BaseService<T extends BaseEntity> {
     }
 
     default Optional<T> update(Long id, T t) {
-        if (getRepository().existsById(t.getId())) {
+        if (getRepository().existsById(id)) {
             return Optional.of(getRepository().save(t));
         }
         return Optional.empty();

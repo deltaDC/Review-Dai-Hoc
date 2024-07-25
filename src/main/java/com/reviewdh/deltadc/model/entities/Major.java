@@ -1,9 +1,10 @@
 package com.reviewdh.deltadc.model.entities;
 
-import com.reviewdh.deltadc.model.entities.associative.UniversityMajorCourseTeacher;
+import com.reviewdh.deltadc.model.entities.associative.UMCT;
 import com.reviewdh.deltadc.model.enums.DegreeType;
 import jakarta.persistence.*;
 import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class Major extends BaseEntity{
 
     @OneToMany(mappedBy = "major")
     @Column(updatable = false, insertable = false)
+    @JsonIgnore
     @ToString.Exclude
-    private List<UniversityMajorCourseTeacher> courses;
+    private List<UMCT> courses;
 }

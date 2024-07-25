@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1721881639847-1" author="deltaDC">
+        <createTable tableName="courses">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_courses"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="course_code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-2" author="deltaDC">
+        <createTable tableName="major_reviews">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_major_reviews"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="review_type" type="SMALLINT"/>
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="content" type="VARCHAR(255)"/>
+            <column name="up_vote" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="down_vote" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="major_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-3" author="deltaDC">
+        <createTable tableName="majors">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_majors"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="university_id" type="BIGINT"/>
+            <column name="major_name" type="VARCHAR(255)"/>
+            <column name="major_code" type="VARCHAR(255)"/>
+            <column name="major_description" type="VARCHAR(255)"/>
+            <column name="degree_type" type="SMALLINT"/>
+            <column name="duration_years" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="credits" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="curriculum_url" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-4" author="deltaDC">
+        <createTable tableName="teacher_contracts">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_teacher_contracts"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="teacher_id" type="BIGINT"/>
+            <column name="university_id" type="BIGINT"/>
+            <column name="position" type="VARCHAR(255)"/>
+            <column name="start_date" type="DATETIME"/>
+            <column name="end_date" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-5" author="deltaDC">
+        <createTable tableName="teacher_course_reviews">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_teacher_course_reviews"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="review_type" type="SMALLINT"/>
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="content" type="VARCHAR(255)"/>
+            <column name="up_vote" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="down_vote" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="teacher_id" type="BIGINT"/>
+            <column name="course_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-6" author="deltaDC">
+        <createTable tableName="teachers">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_teachers"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="profile_picture_url" type="VARCHAR(255)"/>
+            <column name="bio" type="VARCHAR(255)"/>
+            <column name="specializations" type="VARCHAR(255)"/>
+            <column name="qualifications" type="VARCHAR(255)"/>
+            <column name="experience" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="teacher_contract_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-7" author="deltaDC">
+        <createTable tableName="universities">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_universities"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="abbreviation" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location" type="VARCHAR(255)"/>
+            <column name="description" type="CLOB"/>
+            <column name="established_date" type="DATE"/>
+            <column name="university_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="website_url" type="VARCHAR(255)"/>
+            <column name="contact" type="VARCHAR(100)"/>
+            <column name="logo_url" type="VARCHAR(255)"/>
+            <column name="ranking" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_students" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-8" author="deltaDC">
+        <createTable tableName="university_major_course_teacher">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_university_major_course_teacher"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="university_id" type="BIGINT"/>
+            <column name="course_id" type="BIGINT"/>
+            <column name="major_id" type="BIGINT"/>
+            <column name="teacher_id" type="BIGINT"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="credits" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-9" author="deltaDC">
+        <createTable tableName="university_reviews">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_university_reviews"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+            <column name="review_type" type="SMALLINT"/>
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="content" type="VARCHAR(255)"/>
+            <column name="up_vote" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="down_vote" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="university_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-10" author="deltaDC">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="created_at" type="DATETIME(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="DATETIME(255)"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="updated_by" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="phone" type="VARCHAR(255)"/>
+            <column name="avatar" type="VARCHAR(255)"/>
+            <column name="bio" type="CLOB"/>
+            <column name="dob" type="VARCHAR(255)"/>
+            <column name="gender" type="VARCHAR(255)"/>
+            <column name="last_login_date" type="DATETIME"/>
+            <column name="is_enabled" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1721881639847-11" author="deltaDC">
+        <addUniqueConstraint columnNames="email" constraintName="uc_users_email" tableName="users"/>
+    </changeSet>
+    <changeSet id="1721881639847-12" author="deltaDC">
+        <addUniqueConstraint columnNames="username" constraintName="uc_users_username" tableName="users"/>
+    </changeSet>
+    <changeSet id="1721881639847-13" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="university_id" baseTableName="majors"
+                                 constraintName="FK_MAJORS_ON_UNIVERSITYID" referencedColumnNames="id"
+                                 referencedTableName="universities"/>
+    </changeSet>
+    <changeSet id="1721881639847-14" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="major_id" baseTableName="major_reviews"
+                                 constraintName="FK_MAJOR_REVIEWS_ON_MAJORID" referencedColumnNames="id"
+                                 referencedTableName="majors"/>
+    </changeSet>
+    <changeSet id="1721881639847-15" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="major_reviews"
+                                 constraintName="FK_MAJOR_REVIEWS_ON_USERID" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1721881639847-16" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="teacher_id" baseTableName="teacher_contracts"
+                                 constraintName="FK_TEACHER_CONTRACTS_ON_TEACHERID" referencedColumnNames="id"
+                                 referencedTableName="teachers"/>
+    </changeSet>
+    <changeSet id="1721881639847-17" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="university_id" baseTableName="teacher_contracts"
+                                 constraintName="FK_TEACHER_CONTRACTS_ON_UNIVERSITYID" referencedColumnNames="id"
+                                 referencedTableName="universities"/>
+    </changeSet>
+    <changeSet id="1721881639847-18" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="course_id" baseTableName="teacher_course_reviews"
+                                 constraintName="FK_TEACHER_COURSE_REVIEWS_ON_COURSEID" referencedColumnNames="id"
+                                 referencedTableName="courses"/>
+    </changeSet>
+    <changeSet id="1721881639847-19" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="teacher_id" baseTableName="teacher_course_reviews"
+                                 constraintName="FK_TEACHER_COURSE_REVIEWS_ON_TEACHERID" referencedColumnNames="id"
+                                 referencedTableName="teachers"/>
+    </changeSet>
+    <changeSet id="1721881639847-20" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="teacher_course_reviews"
+                                 constraintName="FK_TEACHER_COURSE_REVIEWS_ON_USERID" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+    <changeSet id="1721881639847-21" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="course_id" baseTableName="university_major_course_teacher"
+                                 constraintName="FK_UNIVERSITY_MAJOR_COURSE_TEACHER_ON_COURSEID"
+                                 referencedColumnNames="id" referencedTableName="courses"/>
+    </changeSet>
+    <changeSet id="1721881639847-22" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="major_id" baseTableName="university_major_course_teacher"
+                                 constraintName="FK_UNIVERSITY_MAJOR_COURSE_TEACHER_ON_MAJORID"
+                                 referencedColumnNames="id" referencedTableName="majors"/>
+    </changeSet>
+    <changeSet id="1721881639847-23" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="teacher_id" baseTableName="university_major_course_teacher"
+                                 constraintName="FK_UNIVERSITY_MAJOR_COURSE_TEACHER_ON_TEACHERID"
+                                 referencedColumnNames="id" referencedTableName="teachers"/>
+    </changeSet>
+    <changeSet id="1721881639847-24" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="university_id" baseTableName="university_major_course_teacher"
+                                 constraintName="FK_UNIVERSITY_MAJOR_COURSE_TEACHER_ON_UNIVERSITYID"
+                                 referencedColumnNames="id" referencedTableName="universities"/>
+    </changeSet>
+    <changeSet id="1721881639847-25" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="university_id" baseTableName="university_reviews"
+                                 constraintName="FK_UNIVERSITY_REVIEWS_ON_UNIVERSITYID" referencedColumnNames="id"
+                                 referencedTableName="universities"/>
+    </changeSet>
+    <changeSet id="1721881639847-26" author="deltaDC">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="university_reviews"
+                                 constraintName="FK_UNIVERSITY_REVIEWS_ON_USERID" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>

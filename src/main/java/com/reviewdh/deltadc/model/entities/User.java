@@ -1,5 +1,8 @@
 package com.reviewdh.deltadc.model.entities;
 
+import com.reviewdh.deltadc.model.entities.reviews.MajorReview;
+import com.reviewdh.deltadc.model.entities.reviews.TeacherCourseReview;
+import com.reviewdh.deltadc.model.entities.reviews.UniversityReview;
 import com.reviewdh.deltadc.model.enums.Gender;
 import com.reviewdh.deltadc.model.enums.Role;
 import jakarta.persistence.*;
@@ -69,6 +72,15 @@ public class User extends BaseEntity implements UserDetails {
     private Boolean isEnabled;
 
 //    private Favorite favorite;
+
+    @OneToMany(mappedBy = "user")
+    private List<MajorReview> majorReviews;
+
+    @OneToMany(mappedBy = "user")
+    private List<TeacherCourseReview> teacherCourseReviews;
+
+    @OneToMany(mappedBy = "user")
+    private List<UniversityReview> universityReviews;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

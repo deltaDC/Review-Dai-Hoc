@@ -14,8 +14,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "university_courses")
-public class UniversityMajorCourseTeacher extends BaseEntity {
+@Table(name = "university_major_course_teacher")
+public class UMCT extends BaseEntity {
 
     private Long universityId;
 
