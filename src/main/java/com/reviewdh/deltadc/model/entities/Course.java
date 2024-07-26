@@ -2,10 +2,9 @@ package com.reviewdh.deltadc.model.entities;
 
 import com.reviewdh.deltadc.model.entities.associative.UMCT;
 import com.reviewdh.deltadc.model.entities.reviews.TeacherCourseReview;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.reviewdh.deltadc.validation.CreateGroup;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 
@@ -21,10 +20,19 @@ import java.util.List;
 @Table(name = "courses")
 public class Course extends BaseEntity {
 
+    @NotBlank(
+            message = "Course name is required",
+            groups = CreateGroup.class
+    )
     private String name;
 
+    @Lob
     private String description;
 
+    @NotBlank(
+            message = "Course code is required",
+            groups = CreateGroup.class
+    )
     private String courseCode;
 
     @Column(updatable = false, insertable = false)

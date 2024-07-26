@@ -4,9 +4,12 @@ import com.reviewdh.deltadc.model.entities.associative.TeacherContract;
 import com.reviewdh.deltadc.model.entities.associative.UMCT;
 import com.reviewdh.deltadc.model.entities.reviews.UniversityReview;
 import com.reviewdh.deltadc.model.enums.UniversityType;
+import com.reviewdh.deltadc.validation.CreateGroup;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.URL;
 
 import java.util.Date;
 import java.util.List;
@@ -21,9 +24,17 @@ import java.util.List;
 @Table(name = "universities")
 public class University extends BaseEntity {
     @Column(nullable = false, length = 100)
+    @NotBlank(
+            message = "University name is required",
+            groups = CreateGroup.class
+    )
     private String name;
 
     @Column(nullable = false, length = 20)
+    @NotBlank(
+            message = "University abbreviation is required",
+            groups = CreateGroup.class
+    )
     private String abbreviation;
 
     private String location;
@@ -43,6 +54,7 @@ public class University extends BaseEntity {
     @Column(length = 100)
     private String contact;
 
+    @URL(message = "Invalid URL")
     private String logoUrl;
 
     private int ranking;

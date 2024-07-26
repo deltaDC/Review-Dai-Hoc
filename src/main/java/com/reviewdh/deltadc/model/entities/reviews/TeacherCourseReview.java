@@ -2,8 +2,8 @@ package com.reviewdh.deltadc.model.entities.reviews;
 
 import com.reviewdh.deltadc.model.entities.Course;
 import com.reviewdh.deltadc.model.entities.Teacher;
-import com.reviewdh.deltadc.model.entities.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -16,20 +16,17 @@ import lombok.*;
 @Table(name = "teacher_course_reviews")
 public class TeacherCourseReview extends BaseReview {
 
+    @NotBlank(message = "Teacher ID is required")
     private Long teacherId;
 
     @ManyToOne
     @JoinColumn(name = "teacherId", insertable = false, updatable = false)
     private Teacher teacher;
 
+    @NotBlank(message = "Course ID is required")
     private Long courseId;
 
     @ManyToOne
     @JoinColumn(name = "courseId", insertable = false, updatable = false)
     private Course course;
-
-    private Long userId;
-    @ManyToOne
-    @JoinColumn(name = "userId", insertable = false, updatable = false)
-    private User user;
 }

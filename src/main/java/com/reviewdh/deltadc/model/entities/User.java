@@ -31,17 +31,17 @@ import java.util.Objects;
 public class User extends BaseEntity implements UserDetails {
 
     @Column(unique = true, nullable = false, length = 50)
-    @NotBlank
+    @NotBlank(message = "Username is required")
     private String username;
 
     @Column(nullable = false)
-    @NotBlank
-    @Size(min = 8)
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
     @Column(nullable = false, unique = true)
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email")
     private String email;
 
     @Enumerated(EnumType.STRING)

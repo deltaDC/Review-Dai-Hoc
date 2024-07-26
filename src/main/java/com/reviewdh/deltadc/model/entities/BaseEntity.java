@@ -23,12 +23,12 @@ public abstract class BaseEntity {
     @CreatedDate
     private String createdAt;
 
-//    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private String updatedAt;
 
     private String createdBy;
+
     private String updatedBy;
 
     @PrePersist

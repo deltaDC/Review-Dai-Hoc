@@ -33,7 +33,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
-                .isEnabled(false)
+                .isEnabled(true)
                 .build();
 
 //        if (userRepository.findByEmail(user.getEmail()).isPresent()) {

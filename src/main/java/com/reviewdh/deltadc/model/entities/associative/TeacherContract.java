@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.Date;
@@ -21,8 +22,10 @@ import java.util.Date;
 @Table(name = "teacher_contracts")
 public class TeacherContract extends BaseEntity {
 
+    @NotBlank(message = "Teacher ID is required")
     private Long teacherId;
 
+    @NotBlank(message = "University ID is required")
     private Long universityId;
 
     private String position;

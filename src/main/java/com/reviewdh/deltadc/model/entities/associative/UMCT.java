@@ -1,10 +1,10 @@
 package com.reviewdh.deltadc.model.entities.associative;
 
 import com.reviewdh.deltadc.model.entities.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -17,16 +17,24 @@ import lombok.*;
 @Table(name = "university_major_course_teacher")
 public class UMCT extends BaseEntity {
 
+    @NotBlank(message = "University ID is required")
     private Long universityId;
 
+    @NotBlank(message = "Course ID is required")
     private Long courseId;
 
+    @NotBlank(message = "Major ID is required")
     private Long majorId;
 
+    @NotBlank(message = "Teacher ID is required")
     private Long teacherId;
 
+    @Lob
     private String description;
 
+    @Min(1)
+    @Max(10)
+    @NotBlank(message = "Credits must be between 1 and 10")
     private int credits;
 
     @ManyToOne

@@ -1,11 +1,11 @@
 package com.reviewdh.deltadc.model.entities.reviews;
 
 import com.reviewdh.deltadc.model.entities.University;
-import com.reviewdh.deltadc.model.entities.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -18,14 +18,10 @@ import lombok.*;
 @Table(name = "university_reviews")
 public class UniversityReview extends BaseReview {
 
-    private Long userId;
+    @NotBlank(message = "University ID is required")
     private Long universityId;
 
     @ManyToOne
     @JoinColumn(name = "universityId", insertable = false, updatable = false)
     private University university;
-
-    @ManyToOne
-    @JoinColumn(name = "userId", insertable = false, updatable = false)
-    private User user;
 }
