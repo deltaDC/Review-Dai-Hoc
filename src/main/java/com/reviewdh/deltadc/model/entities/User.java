@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -56,12 +57,13 @@ public class User extends BaseEntity implements UserDetails {
 
     private String phone;
 
+    @URL(message = "Invalid URL")
     private String avatar;
 
     @Lob
     private String bio;
 
-    private String dob;
+    private Date dob;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;

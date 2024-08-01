@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationRequest {
 
-    @Email
+    @Email(message = "Email must be valid")
     @NotNull(message = "Email is required")
     private String email;
 

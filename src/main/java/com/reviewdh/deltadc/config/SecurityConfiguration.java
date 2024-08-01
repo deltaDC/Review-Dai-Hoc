@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/**").permitAll()
-                                .requestMatchers("/api/auth/**").permitAll() // Cho phép tất cả mọi người truy cập
+                                .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
@@ -45,13 +45,13 @@ public class SecurityConfiguration {
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("http://localhost:3000"); // Allowed origin
-        configuration.addAllowedMethod("*"); // Allow all HTTP methods
-        configuration.addAllowedHeader("*"); // Allow all headers
-        configuration.setAllowCredentials(true); // Allow credentials
+        configuration.addAllowedOrigin("http://localhost:4200");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Apply CORS configuration to all paths
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }

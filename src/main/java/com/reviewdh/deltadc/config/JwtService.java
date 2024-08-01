@@ -6,8 +6,7 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -20,13 +19,13 @@ JwtService để thực hiện các service liên quan đến token
  */
 
 
+@Slf4j
 @Service
 public class JwtService {
 
     private JWSSigner signer;
     private JWSVerifier verifier;
 
-    private static final Logger log = LoggerFactory.getLogger(JwtService.class);
     @Value("${app.secretkey}")
     private String SECRET_KEY;
 

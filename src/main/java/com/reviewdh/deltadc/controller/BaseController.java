@@ -47,7 +47,20 @@ public abstract class BaseController<T extends BaseEntity> {
         );
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
+    public ResponseEntity<BaseResponse> findByUUId(@PathVariable String uuid) {
+        Optional<T> entity = service.findByUUID(uuid);
+
+        return entity.map(ent -> ResponseEntity.ok(
+                BaseResponse.builder()
+                        .status(HttpStatus.OK)
+                        .message("Success")
+                        .data(ent)
+                        .build()
+        )).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/id/{id}")
     public ResponseEntity<BaseResponse> findById(@PathVariable Long id) {
         Optional<T> entity = service.findById(id);
 

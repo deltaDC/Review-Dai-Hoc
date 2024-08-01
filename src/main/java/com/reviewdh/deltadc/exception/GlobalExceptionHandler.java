@@ -3,6 +3,7 @@ package com.reviewdh.deltadc.exception;
 import com.reviewdh.deltadc.response.BaseExceptionResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     private static String getExceptionMessage(Exception e) {
+        log.error(e.getLocalizedMessage());
         String message;
 
         if (e instanceof ConstraintViolationException) {
@@ -37,6 +40,7 @@ public class GlobalExceptionHandler {
             MethodArgumentNotValidException.class
     })
     public ResponseEntity<Object> handleCustomGlobalException(Exception e) {
+        log.error(e.getLocalizedMessage());
 
         BaseExceptionResponse baseExceptionResponse = new BaseExceptionResponse(
                 HttpStatus.BAD_REQUEST,
@@ -48,15 +52,16 @@ public class GlobalExceptionHandler {
     }
 
     //TODO : Add more exception handler
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<Object> handleException(Exception e) {
-//
-//        BaseExceptionResponse baseExceptionResponse = new BaseExceptionResponse(
-//                HttpStatus.INTERNAL_SERVER_ERROR,
-//                "An unexpected error occurred. Please try again later."
-//        );
-//
-//        return ResponseEntity.status(500)
-//                .body(baseExceptionResponse);
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception e) {
+        log.debug(e.getLocalizedMessage(), e);
+
+        BaseExceptionResponse baseExceptionResponse = new BaseExceptionResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "An unexpected error occurred. Please try again later."
+        );
+
+        return ResponseEntity.status(500)
+                .body(baseExceptionResponse);
+    }
 }

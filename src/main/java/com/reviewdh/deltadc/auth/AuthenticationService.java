@@ -67,7 +67,7 @@ public class AuthenticationService {
                         .token(token)
                         .username(user.getUsername())
                         .userId(String.valueOf(user.getId()))
-                        .message("Tạo thành công")
+                        .message("Created user successfully")
                         .build());
     }
 
@@ -85,6 +85,7 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .username(user.getUsername())
                 .userId(String.valueOf(user.getId()))
+                .message("Success")
                 .role(String.valueOf(user.getRole()))
                 .build();
     }

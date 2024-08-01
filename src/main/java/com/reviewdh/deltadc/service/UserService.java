@@ -1,9 +1,16 @@
 package com.reviewdh.deltadc.service;
 
+import com.reviewdh.deltadc.model.dtos.UserDto;
 import com.reviewdh.deltadc.model.entities.User;
 import com.reviewdh.deltadc.repository.BaseRepository;
 import com.reviewdh.deltadc.repository.UserRepository;
+import com.reviewdh.deltadc.specification.BaseSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,5 +22,21 @@ public class UserService implements BaseService<User> {
     @Override
     public BaseRepository<User> getRepository() {
         return userRepository;
+    }
+
+    public Page<UserDto> list(@Nullable String username,
+                              @Nullable String email,
+                              @Nullable String firstName,
+                              @Nullable String lastName,
+                              @Nullable String phone,
+                              @Nullable int page,
+                              @Nullable int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Specification<User> specification = BaseSpecification.withDynamicQuery(
+                username, email, firstName, lastName, phone
+        );
+
+        return userRepository.findAll(pageable, username, email, firstName, lastName, phone);
     }
 }

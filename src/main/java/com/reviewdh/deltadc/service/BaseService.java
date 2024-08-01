@@ -42,6 +42,10 @@ public interface BaseService<T extends BaseEntity> {
         return getRepository().findById(id);
     }
 
+    default Optional<T> findByUUID(String uuid) {
+        return getRepository().findByUuid(uuid);
+    }
+
     default List<T> findAll() {
         return getRepository().findAll();
     }

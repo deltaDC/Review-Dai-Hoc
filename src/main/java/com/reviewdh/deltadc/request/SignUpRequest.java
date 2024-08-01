@@ -17,11 +17,11 @@ public class SignUpRequest {
     @NotNull(message = "Username is required")
     private String username;
 
-    @Email
+    @Email(message = "Email must be valid")
     @NotNull(message = "Email is required")
     private String email;
 
-    @Size(min = 8)
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     @NotNull(message = "Password is required")
     private String password;
 
