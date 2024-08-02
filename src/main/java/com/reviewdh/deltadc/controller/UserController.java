@@ -6,7 +6,9 @@ import com.reviewdh.deltadc.response.BaseResponse;
 import com.reviewdh.deltadc.service.BaseService;
 import com.reviewdh.deltadc.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,15 +27,23 @@ public class UserController extends BaseController<User>{
 
     @GetMapping("/list")
     public ResponseEntity<BaseResponse> list(
-            @RequestParam("username") String username,
-            @RequestParam("email") String email,
-            @RequestParam("firstName") String firstName,
-            @RequestParam("lastName") String lastName,
-            @RequestParam("phone") String phone,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "30") int size
+            @Nullable  @RequestParam("username") String username,
+            @Nullable @RequestParam("email") String email,
+            @Nullable @RequestParam("firstName") String firstName,
+            @Nullable @RequestParam("lastName") String lastName,
+            @Nullable @RequestParam("phone") String phone,
+            @Nullable @RequestParam(defaultValue = "0") int page,
+            @Nullable @RequestParam(defaultValue = "30") int size
     ) {
         Page<UserDto> userDtos = userService.list(username, email, firstName, lastName, phone, page, size);
+
+        return ResponseEntity.ok(
+                BaseResponse.builder()
+                        .status(HttpStatus.OK)
+                        .message("Success")
+                        .data(userDtos)
+                        .build()
+        );
     }
 
 }

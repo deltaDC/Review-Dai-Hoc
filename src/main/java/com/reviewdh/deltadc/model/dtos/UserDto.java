@@ -8,6 +8,7 @@ import lombok.*;
 import java.util.Date;
 
 @Data
+@Builder
 public class UserDto {
 
     private String username;

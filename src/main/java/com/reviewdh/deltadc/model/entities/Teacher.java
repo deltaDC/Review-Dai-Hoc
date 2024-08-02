@@ -39,6 +39,8 @@ public class Teacher extends BaseEntity {
     )
     private String lastName;
 
+    private String fullName = this.firstName + " " + this.lastName;
+
     @Email(message = "Invalid email")
     private String email;
 

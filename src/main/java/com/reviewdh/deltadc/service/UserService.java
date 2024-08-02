@@ -1,5 +1,7 @@
 package com.reviewdh.deltadc.service;
 
+import com.reviewdh.deltadc.mapper.UserMapper;
+import com.reviewdh.deltadc.model.criteria.UserCriteria;
 import com.reviewdh.deltadc.model.dtos.UserDto;
 import com.reviewdh.deltadc.model.entities.User;
 import com.reviewdh.deltadc.repository.BaseRepository;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService implements BaseService<User> {
 
+    private final UserMapper userMapper;
     private final UserRepository userRepository;
 
     @Override
@@ -33,10 +36,17 @@ public class UserService implements BaseService<User> {
                               @Nullable int size) {
         Pageable pageable = PageRequest.of(page, size);
 
-        Specification<User> specification = BaseSpecification.withDynamicQuery(
-                username, email, firstName, lastName, phone
-        );
+        UserCriteria userCriteria = UserCriteria.builder()
+                .username(username)
+                .email(email)
+                .firstName(firstName)
+                .lastName(lastName)
+                .phone(phone)
+                .build();
 
-        return userRepository.findAll(pageable, username, email, firstName, lastName, phone);
+        Specification<User> specification = BaseSpecification.withDynamicQuery(userCriteria);
+        Page<User> userPage = userRepository.findAll(specification, pageable);
+
+        return userMapper.fromUserPageToUserDtoPage(userPage);
     }
 }

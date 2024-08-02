@@ -52,16 +52,16 @@ public class GlobalExceptionHandler {
     }
 
     //TODO : Add more exception handler
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(Exception e) {
-        log.debug(e.getLocalizedMessage(), e);
-
-        BaseExceptionResponse baseExceptionResponse = new BaseExceptionResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "An unexpected error occurred. Please try again later."
-        );
-
-        return ResponseEntity.status(500)
-                .body(baseExceptionResponse);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<Object> handleException(Exception e) {
+//        log.debug(e.getLocalizedMessage(), e);
+//
+//        BaseExceptionResponse baseExceptionResponse = new BaseExceptionResponse(
+//                HttpStatus.INTERNAL_SERVER_ERROR,
+//                "An unexpected error occurred. Please try again later."
+//        );
+//
+//        return ResponseEntity.status(500)
+//                .body(baseExceptionResponse);
+//    }
 }
