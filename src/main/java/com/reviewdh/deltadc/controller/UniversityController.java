@@ -32,7 +32,7 @@ public class UniversityController extends BaseController<University> {
             @Nullable @RequestParam(defaultValue = "0") int page,
             @Nullable @RequestParam(defaultValue = "30") int size
     ) {
-        Page<University> universities = universityService.list(name, abbreviation, location, page, size);
+        Page<University> universities = universityService.list(page, size, name, abbreviation, location);
 
         return ResponseEntity.ok(
                 BaseResponse.builder()

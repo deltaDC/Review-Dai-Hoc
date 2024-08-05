@@ -25,17 +25,17 @@ public class MajorService implements BaseService<Major> {
         return majorRepository;
     }
 
-    public Page<Major> list(String majorName, String majorCode, DegreeType degreeType, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        MajorCriteria majorCriteria = MajorCriteria.builder()
-                .majorName(majorName)
-                .majorCode(majorCode)
-                .degreeType(degreeType)
-                .build();
-
-        Specification<Major> specification = BaseSpecification.withDynamicQuery(majorCriteria);
-
-        return majorRepository.findAll(specification, pageable);
-    }
+//    public Page<Major> list(String majorName, String majorCode, DegreeType degreeType, int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//
+//        MajorCriteria majorCriteria = MajorCriteria.builder()
+//                .majorName(majorName)
+//                .majorCode(majorCode)
+//                .degreeType(degreeType)
+//                .build();
+//
+//        Specification<Major> specification = BaseSpecification.withDynamicQuery(majorCriteria);
+//
+//        return majorRepository.findAll(specification, pageable);
+//    }
 }

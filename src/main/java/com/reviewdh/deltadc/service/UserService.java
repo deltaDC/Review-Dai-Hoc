@@ -27,26 +27,26 @@ public class UserService implements BaseService<User> {
         return userRepository;
     }
 
-    public Page<UserDto> list(@Nullable String username,
-                              @Nullable String email,
-                              @Nullable String firstName,
-                              @Nullable String lastName,
-                              @Nullable String phone,
-                              @Nullable int page,
-                              @Nullable int size) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        UserCriteria userCriteria = UserCriteria.builder()
-                .username(username)
-                .email(email)
-                .firstName(firstName)
-                .lastName(lastName)
-                .phone(phone)
-                .build();
-
-        Specification<User> specification = BaseSpecification.withDynamicQuery(userCriteria);
-        Page<User> userPage = userRepository.findAll(specification, pageable);
-
-        return userMapper.fromUserPageToUserDtoPage(userPage);
-    }
+//    public Page<UserDto> list(@Nullable String username,
+//                              @Nullable String email,
+//                              @Nullable String firstName,
+//                              @Nullable String lastName,
+//                              @Nullable String phone,
+//                              @Nullable int page,
+//                              @Nullable int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//
+//        UserCriteria userCriteria = UserCriteria.builder()
+//                .username(username)
+//                .email(email)
+//                .firstName(firstName)
+//                .lastName(lastName)
+//                .phone(phone)
+//                .build();
+//
+//        Specification<User> specification = BaseSpecification.withDynamicQuery(userCriteria);
+//        Page<User> userPage = userRepository.findAll(specification, pageable);
+//
+//        return userMapper.fromUserPageToUserDtoPage(userPage);
+//    }
 }

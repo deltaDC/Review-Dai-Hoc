@@ -33,7 +33,7 @@ public class MajorController extends BaseController<Major>{
             @Nullable @RequestParam(defaultValue = "0") int page,
             @Nullable @RequestParam(defaultValue = "30") int size
     ) {
-        Page<Major> majorPage = majorService.list(majorName, majorCode, degreeType, page, size);
+        Page<Major> majorPage = majorService.list(page, size, majorName, majorCode, degreeType.toString());
 
         return ResponseEntity.ok(
                 BaseResponse.builder()

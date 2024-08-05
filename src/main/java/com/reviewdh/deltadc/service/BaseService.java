@@ -2,9 +2,11 @@ package com.reviewdh.deltadc.service;
 
 import com.reviewdh.deltadc.model.entities.BaseEntity;
 import com.reviewdh.deltadc.repository.BaseRepository;
+import com.reviewdh.deltadc.specification.BaseSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -58,6 +60,12 @@ public interface BaseService<T extends BaseEntity> {
 
     default void deleteById(Long id) {
         getRepository().deleteById(id);
+    }
+
+    default Page<T> list(int page, int size, String... params) {
+        Specification<T> specification = BaseSpecification.withDynamicQuery(params);
+        Pageable pageable = PageRequest.of(page, size);
+        return getRepository().findAll(specification, pageable);
     }
 }
 

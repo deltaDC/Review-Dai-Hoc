@@ -9,10 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -108,6 +110,22 @@ public abstract class BaseController<T extends BaseEntity> {
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
                         .message("Success")
+                        .build()
+        );
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<BaseResponse> list (@Nullable @RequestParam Map<String, String> params,
+                                            @Nullable @RequestParam(defaultValue = "0") int page,
+                                            @Nullable @RequestParam(defaultValue = "30") int size) {
+        assert params != null;
+        Page<T> entities = service.list(page, size, params.values().toArray(new String[0]));
+
+        return ResponseEntity.ok(
+                BaseResponse.builder()
+                        .status(HttpStatus.OK)
+                        .message("Success")
+                        .data(entities)
                         .build()
         );
     }

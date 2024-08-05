@@ -32,7 +32,7 @@ public class TeacherController extends BaseController<Teacher>{
             @Nullable @RequestParam(defaultValue = "0") int page,
             @Nullable @RequestParam(defaultValue = "30") int size
     ) {
-        Page<Teacher> teacherPage = teacherService.list(fullName, email, phoneNumber, page, size);
+        Page<Teacher> teacherPage = teacherService.list(page, size, fullName, email, phoneNumber);
 
         return ResponseEntity.ok(
                 BaseResponse.builder()

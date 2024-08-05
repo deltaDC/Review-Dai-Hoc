@@ -23,17 +23,17 @@ public class UniversityService implements BaseService<University> {
         return universityRepository;
     }
 
-    public Page<University> list(String name, String abbreviation, String location, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        UniversityCriteria universityCriteria = UniversityCriteria.builder()
-                .name(name)
-                .abbreviation(abbreviation)
-                .location(location)
-                .build();
-
-        Specification<University> specification = BaseSpecification.withDynamicQuery(universityCriteria);
-
-        return universityRepository.findAll(specification, pageable);
-    }
+//    public Page<University> list(String name, String abbreviation, String location, int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//
+//        UniversityCriteria universityCriteria = UniversityCriteria.builder()
+//                .name(name)
+//                .abbreviation(abbreviation)
+//                .location(location)
+//                .build();
+//
+//        Specification<University> specification = BaseSpecification.withDynamicQuery(universityCriteria);
+//
+//        return universityRepository.findAll(specification, pageable);
+//    }
 }

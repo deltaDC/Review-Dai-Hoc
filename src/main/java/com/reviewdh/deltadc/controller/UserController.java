@@ -35,7 +35,7 @@ public class UserController extends BaseController<User>{
             @Nullable @RequestParam(defaultValue = "0") int page,
             @Nullable @RequestParam(defaultValue = "30") int size
     ) {
-        Page<UserDto> userDtos = userService.list(username, email, firstName, lastName, phone, page, size);
+        Page<User> userDtos = userService.list(page, size, username, email, firstName, lastName, phone);
 
         return ResponseEntity.ok(
                 BaseResponse.builder()

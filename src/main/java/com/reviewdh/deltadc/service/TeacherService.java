@@ -23,17 +23,17 @@ public class TeacherService implements BaseService<Teacher> {
         return teacherRepository;
     }
 
-    public Page<Teacher> list(String fullName, String email, String phoneNumber, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        TeacherCriteria teacherCriteria = TeacherCriteria.builder()
-                .fullName(fullName)
-                .email(email)
-                .phoneNumber(phoneNumber)
-                .build();
-
-        Specification<Teacher> specification = BaseSpecification.withDynamicQuery(teacherCriteria);
-
-        return teacherRepository.findAll(specification, pageable);
-    }
+//    public Page<Teacher> list(String fullName, String email, String phoneNumber, int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//
+//        TeacherCriteria teacherCriteria = TeacherCriteria.builder()
+//                .fullName(fullName)
+//                .email(email)
+//                .phoneNumber(phoneNumber)
+//                .build();
+//
+//        Specification<Teacher> specification = BaseSpecification.withDynamicQuery(teacherCriteria);
+//
+//        return teacherRepository.findAll(specification, pageable);
+//    }
 }
