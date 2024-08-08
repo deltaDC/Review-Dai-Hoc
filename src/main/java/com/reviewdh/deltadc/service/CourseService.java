@@ -16,4 +16,9 @@ public class CourseService implements BaseService<Course> {
     public BaseRepository<Course> getRepository() {
         return courseRepository;
     }
+
+    @Override
+    public Class<Course> getEntityClass() {
+        return Course.class;
+    }
 }

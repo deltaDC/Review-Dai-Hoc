@@ -66,7 +66,6 @@ public class AuthenticationService {
                 .body(AuthenticationResponse.builder()
                         .token(token)
                         .username(user.getUsername())
-                        .userId(String.valueOf(user.getId()))
                         .message("Created user successfully")
                         .build());
     }
@@ -80,11 +79,10 @@ public class AuthenticationService {
         );
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user, user.getEmail());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .username(user.getUsername())
-                .userId(String.valueOf(user.getId()))
                 .message("Success")
                 .role(String.valueOf(user.getRole()))
                 .build();

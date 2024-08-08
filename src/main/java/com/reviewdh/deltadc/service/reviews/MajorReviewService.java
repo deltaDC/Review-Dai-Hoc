@@ -17,4 +17,9 @@ public class MajorReviewService implements BaseService<MajorReview> {
     public BaseRepository<MajorReview> getRepository() {
         return majorReviewRepository;
     }
+
+    @Override
+    public Class<MajorReview> getEntityClass() {
+        return MajorReview.class;
+    }
 }

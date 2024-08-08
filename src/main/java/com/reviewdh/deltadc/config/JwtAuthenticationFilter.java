@@ -1,11 +1,5 @@
 package com.reviewdh.deltadc.config;
 
-/*
-Lớp này dùng để filter các request của người dùng
-Khi người dùng gửi request đến server sẽ chạy qua lớp này đầu tiên
-Kiểm tra xem request có chứa header 'authorization' không
- */
-
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -43,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         jwt = authHeader.substring(7);
-        userEmail = jwtService.extractUsername(jwt);
+        userEmail = jwtService.extractEmail(jwt);
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);

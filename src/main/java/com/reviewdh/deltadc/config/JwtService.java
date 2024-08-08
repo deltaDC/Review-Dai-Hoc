@@ -5,23 +5,26 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import com.reviewdh.deltadc.model.entities.User;
+import com.reviewdh.deltadc.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.Date;
-
-/*
-JwtService để thực hiện các service liên quan đến token
- */
-
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class JwtService {
+
+    private final UserRepository userRepository;
 
     private JWSSigner signer;
     private JWSVerifier verifier;
@@ -29,14 +32,14 @@ public class JwtService {
     @Value("${app.secretkey}")
     private String SECRET_KEY;
 
-    public String extractUsername(String token) {
+    public String extractEmail(String token) {
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
             if (signedJWT.verify(verifier)) {
                 return signedJWT.getJWTClaimsSet().getSubject();
             }
         } catch (Exception e) {
-            log.error("Failed to extract username from token", e);
+            log.error("Failed to extract email from token", e);
         }
         return null;
     }
@@ -47,12 +50,14 @@ public class JwtService {
         verifier = new MACVerifier(SECRET_KEY);
     }
 
-    public String generateToken(UserDetails userDetails) throws JOSEException {
+    public String generateToken(UserDetails userDetails, String email) throws JOSEException {
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                .subject(userDetails.getUsername())
+                .subject(email)
                 .issueTime(new Date())
                 .expirationTime(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
-                .claim("roles", userDetails.getAuthorities())
+                .claim("roles", userDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
                 .build();
 
         SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
@@ -72,7 +77,10 @@ public class JwtService {
     public boolean isTokenValid(String token, UserDetails userDetails) {
         try {
             JWTClaimsSet claims = extractAllClaims(token);
-            return claims.getSubject().equals(userDetails.getUsername()) && !claims.getExpirationTime().before(new Date());
+            String userEmailFromUserDetails = userRepository.findByUsername(userDetails.getUsername())
+                    .map(User::getEmail)
+                    .orElse(null);
+            return claims.getSubject().equals(userEmailFromUserDetails) && !claims.getExpirationTime().before(new Date());
         } catch (Exception e) {
             return false;
         }

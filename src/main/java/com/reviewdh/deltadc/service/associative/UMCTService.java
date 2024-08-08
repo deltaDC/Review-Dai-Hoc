@@ -17,4 +17,9 @@ public class UMCTService implements BaseService<UMCT> {
     public BaseRepository<UMCT> getRepository() {
         return umctRepository;
     }
+
+    @Override
+    public Class<UMCT> getEntityClass() {
+        return UMCT.class;
+    }
 }

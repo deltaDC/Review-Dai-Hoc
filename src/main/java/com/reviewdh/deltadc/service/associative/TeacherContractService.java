@@ -17,4 +17,9 @@ public class TeacherContractService implements BaseService<TeacherContract> {
     public BaseRepository<TeacherContract> getRepository() {
         return teacherContractRepository;
     }
+
+    @Override
+    public Class<TeacherContract> getEntityClass() {
+        return TeacherContract.class;
+    }
 }

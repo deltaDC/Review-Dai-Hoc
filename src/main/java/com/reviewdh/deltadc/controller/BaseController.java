@@ -35,10 +35,11 @@ public abstract class BaseController<T extends BaseEntity> {
         );
     }
 
-    @GetMapping("/page")
-    public ResponseEntity<BaseResponse> page(@RequestParam(defaultValue = "0") int page,
-                                            @RequestParam(defaultValue = "10") int size) {
-        Page<T> entities = service.page(page, size);
+    @GetMapping("/list")
+    public ResponseEntity<BaseResponse> list (@Nullable @RequestParam Map<String, String> params,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "30") int size) {
+        Page<T> entities = service.list(page, size, params);
 
         return ResponseEntity.ok(
                 BaseResponse.builder()
@@ -110,22 +111,6 @@ public abstract class BaseController<T extends BaseEntity> {
                 BaseResponse.builder()
                         .status(HttpStatus.OK)
                         .message("Success")
-                        .build()
-        );
-    }
-
-    @GetMapping("/list")
-    public ResponseEntity<BaseResponse> list (@Nullable @RequestParam Map<String, String> params,
-                                            @Nullable @RequestParam(defaultValue = "0") int page,
-                                            @Nullable @RequestParam(defaultValue = "30") int size) {
-        assert params != null;
-        Page<T> entities = service.list(page, size, params.values().toArray(new String[0]));
-
-        return ResponseEntity.ok(
-                BaseResponse.builder()
-                        .status(HttpStatus.OK)
-                        .message("Success")
-                        .data(entities)
                         .build()
         );
     }

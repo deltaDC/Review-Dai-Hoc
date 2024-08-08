@@ -17,4 +17,9 @@ public class TeacherCourseReviewService implements BaseService<TeacherCourseRevi
     public BaseRepository<TeacherCourseReview> getRepository() {
         return teacherCourseReviewRepository;
     }
+
+    @Override
+    public Class<TeacherCourseReview> getEntityClass() {
+        return TeacherCourseReview.class;
+    }
 }

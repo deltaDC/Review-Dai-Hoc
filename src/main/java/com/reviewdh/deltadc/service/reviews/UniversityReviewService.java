@@ -17,4 +17,9 @@ public class UniversityReviewService implements BaseService<UniversityReview> {
     public BaseRepository<UniversityReview> getRepository() {
         return universityReviewRepository;
     }
+
+    @Override
+    public Class<UniversityReview> getEntityClass() {
+        return UniversityReview.class;
+    }
 }
