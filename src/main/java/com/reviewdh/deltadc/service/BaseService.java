@@ -1,16 +1,14 @@
 package com.reviewdh.deltadc.service;
 
 import com.reviewdh.deltadc.model.entities.BaseEntity;
-import com.reviewdh.deltadc.model.entities.reviews.BaseReview;
 import com.reviewdh.deltadc.repository.BaseRepository;
 import com.reviewdh.deltadc.specification.BaseSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.lang.NonNull;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
@@ -27,13 +25,14 @@ public interface BaseService<T extends BaseEntity> {
         return getRepository().save(t);
     }
 
+    //TODO can not update, need to fix
     @Transactional
     @PreAuthorize(
             "hasRole('ROLE_ADMIN') " +
             "or hasRole('ROLE_DEVELOPER') " +
             "or @authorizeService.isOwner(#id, updatedEntity.getClass().getSimpleName())"
     )
-    default Optional<T> update(Long id, T updatedEntity) {
+    default Optional<T> update(@NonNull Long id, T updatedEntity) {
         Optional<T> existingEntityOpt = getRepository().findById(id);
         if(existingEntityOpt.isEmpty()) return Optional.empty();
 
@@ -54,12 +53,12 @@ public interface BaseService<T extends BaseEntity> {
     }
 
     @Transactional(readOnly = true)
-    default Optional<T> findById(Long id) {
+    default Optional<T> findById(@NonNull Long id) {
         return getRepository().findById(id);
     }
 
     @Transactional(readOnly = true)
-    default Optional<T> findByUUID(String uuid) {
+    default Optional<T> findByUUID(@NonNull String uuid) {
         return getRepository().findByUuid(uuid);
     }
 
@@ -69,7 +68,7 @@ public interface BaseService<T extends BaseEntity> {
     }
 
     @Transactional
-    default void deleteById(Long id) {
+    default void deleteById(@NonNull Long id) {
         getRepository().deleteById(id);
     }
 
