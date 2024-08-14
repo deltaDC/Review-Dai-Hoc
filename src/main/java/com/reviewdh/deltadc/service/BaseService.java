@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,29 +26,30 @@ public interface BaseService<T extends BaseEntity> {
         return getRepository().save(t);
     }
 
-    //TODO can not update, need to fix
     @Transactional
-    @PreAuthorize(
-            "hasRole('ROLE_ADMIN') " +
-            "or hasRole('ROLE_DEVELOPER') " +
-            "or @authorizeService.isOwner(#id, updatedEntity.getClass().getSimpleName())"
-    )
+    @PreAuthorize("@authorizeService.isOwner(#id, updatedEntity.getClass().getSimpleName())")
     default Optional<T> update(@NonNull Long id, T updatedEntity) {
         Optional<T> existingEntityOpt = getRepository().findById(id);
         if(existingEntityOpt.isEmpty()) return Optional.empty();
 
         // patch update the entity
         T existingEntity = existingEntityOpt.get();
-        for (Field field : updatedEntity.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            try {
-                Object value = field.get(updatedEntity);
-                if (value != null) {
-                    field.set(existingEntity, value);
+
+        Class<?> clazz = updatedEntity.getClass();
+        while (clazz != null) {
+            System.out.println("clazz: " + Arrays.toString(clazz.getDeclaredFields()));
+            for (Field field : clazz.getDeclaredFields()) {
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(updatedEntity);
+                    if (value != null) {
+                        field.set(existingEntity, value);
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("Failed to update field: " + field.getName(), e);
                 }
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException("Failed to update field: " + field.getName(), e);
             }
+            clazz = clazz.getSuperclass();
         }
         return Optional.of(getRepository().save(existingEntity));
     }
