@@ -27,7 +27,8 @@ public interface BaseService<T extends BaseEntity> {
     }
 
     @Transactional
-    @PreAuthorize("@authorizeService.isOwner(#id, updatedEntity.getClass().getSimpleName())")
+//    @PreAuthorize("@authorizeService.isOwner(#id, updatedEntity.getClass().getSimpleName())")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     default Optional<T> update(@NonNull Long id, T updatedEntity) {
         Optional<T> existingEntityOpt = getRepository().findById(id);
         if(existingEntityOpt.isEmpty()) return Optional.empty();

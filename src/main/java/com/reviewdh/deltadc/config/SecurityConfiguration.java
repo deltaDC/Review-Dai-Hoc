@@ -44,39 +44,43 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET, "/api/course/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/teacher-contract/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/umct/**").permitAll()
-//                                .requestMatchers(HttpMethod.GET, "/api/university-review/**").permitAll()
-//                                .requestMatchers(HttpMethod.GET, "/api/teacher-course-review/**").permitAll()
-//                                .requestMatchers(HttpMethod.GET, "/api/major-review/**").permitAll()
 
                                 //admin
-                                .requestMatchers("/api/user/**").hasAnyAuthority(
-                                        "ROLE_ADMIN",
-                                        "ROLE_DEVELOPER"
-                                )
-                                .requestMatchers("/api/university/**").hasAnyAuthority(
-                                        "ROLE_ADMIN",
-                                        "ROLE_DEVELOPER"
-                                )
-                                .requestMatchers("/api/teacher/**").hasAnyAuthority(
-                                        "ROLE_ADMIN",
-                                        "ROLE_DEVELOPER"
-                                )
-                                .requestMatchers("/api/major/**").hasAnyAuthority(
-                                        "ROLE_ADMIN",
-                                        "ROLE_DEVELOPER"
-                                )
-                                .requestMatchers("/api/course/**").hasAnyAuthority(
-                                        "ROLE_ADMIN",
-                                        "ROLE_DEVELOPER"
-                                )
-                                .requestMatchers("/api/teacher-contract/**").hasAnyAuthority(
-                                        "ROLE_ADMIN",
-                                        "ROLE_DEVELOPER"
-                                )
-                                .requestMatchers("/api/umct/**").hasAnyAuthority(
-                                        "ROLE_ADMIN",
-                                        "ROLE_DEVELOPER"
-                                )
+                                .requestMatchers("/api/user/**")
+                                        .hasAnyAuthority(
+                                                "ROLE_ADMIN",
+                                                "ROLE_DEVELOPER"
+                                        )
+                                .requestMatchers("/api/university/**")
+                                        .hasAnyAuthority(
+                                                "ROLE_ADMIN",
+                                                "ROLE_DEVELOPER"
+                                        )
+                                .requestMatchers("/api/teacher/**")
+                                        .hasAnyAuthority(
+                                                "ROLE_ADMIN",
+                                                "ROLE_DEVELOPER"
+                                        )
+                                .requestMatchers("/api/major/**")
+                                        .hasAnyAuthority(
+                                                "ROLE_ADMIN",
+                                                "ROLE_DEVELOPER"
+                                        )
+                                .requestMatchers("/api/course/**")
+                                        .hasAnyAuthority(
+                                                "ROLE_ADMIN",
+                                                "ROLE_DEVELOPER"
+                                        )
+                                .requestMatchers("/api/teacher-contract/**")
+                                        .hasAnyAuthority(
+                                                "ROLE_ADMIN",
+                                                "ROLE_DEVELOPER"
+                                        )
+                                .requestMatchers("/api/umct/**")
+                                        .hasAnyAuthority(
+                                                "ROLE_ADMIN",
+                                                "ROLE_DEVELOPER"
+                                        )
 
                                 //reviews
                                 .requestMatchers("/api/university-review/**")
